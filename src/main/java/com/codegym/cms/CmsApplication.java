@@ -1,13 +1,13 @@
-package com.example.springbootstarted;
+package com.codegym.cms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootStartedApplication {
+public class CmsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootStartedApplication.class, args);
+        SpringApplication.run(CmsApplication.class, args);
     }
 
 }
