@@ -1,17 +1,13 @@
 package com.app.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table
-public class Group {
+@Data
+public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,9 +15,13 @@ public class Group {
     private String image;
     private String about;
 
-    public Group(String name, String image, String about) {
+    public Team(String name, String image, String about) {
         this.name = name;
         this.image = image;
         this.about = about;
     }
+
+    public Team() {
+    }
+
 }

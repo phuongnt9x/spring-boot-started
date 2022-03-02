@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-public class EmployeeService implements IEmployeeService{
+public class EmployeeService implements IUserService {
     @Autowired
     private IUserRepo employeeRepo;
     @Override

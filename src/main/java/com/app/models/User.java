@@ -1,7 +1,6 @@
 package com.app.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,11 +16,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(	name = "users",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
-                @UniqueConstraint(columnNames = "email")
-        })
+@Table(	name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,9 +24,11 @@ public class User {
     private String name;
     @NotBlank
     @Size(max = 20)
+    @Column(unique = true)
     private String username;
     @Email
     @NotBlank
+    @Column(unique = true)
     private String email;
     private String password;
     private Date dateOfBirth;
@@ -42,14 +39,22 @@ public class User {
     private String about;
     @Lob
     private String selfIntroduce;
-    private Long groupId;
-    private Long languageId;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "users_programming_languages",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "programming_language_id"))
+    private Set<ProgrammingLanguage> progLanguage = new HashSet<>();
     private int status;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "users_teams",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    private Set<Team> teams = new HashSet<>();
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -81,5 +86,9 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
